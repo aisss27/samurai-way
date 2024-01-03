@@ -1,25 +1,22 @@
 import  React from 'react';
 import s from './Profile.module.css';
-import {MyPosts, PostType} from './myPosts/MyPosts';
+import {MyPosts} from './myPosts/MyPosts';
 import {ProfileInfo} from './profileInfo/ProfileInfo';
+import {PostType} from '../../redux/state';
 
 
 
 export type ProfileProps = {
-    posts: PostType[]
+    state: {
+        posts: PostType[]
+    }
 }
 
 export const Profile = (props: ProfileProps) => {
-    let posts = [
-        {id: 1, message: 'Hi, I am Ais', likesCount: 777},
-        {id: 2, message: 'New Iphone!!!', likesCount: 123},
-        {id: 2, message: 'New Iphone!!!', likesCount: 27},
-        {id: 2, message: 'New Iphone!!!', likesCount: 0},
-    ]
     return (
         <div>
            <ProfileInfo/>
-            <MyPosts posts={props.posts}/>
+            <MyPosts posts={props.state.posts}/>
             </div>
     );
 };

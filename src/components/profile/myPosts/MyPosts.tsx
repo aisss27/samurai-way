@@ -5,19 +5,20 @@ import {addPost, PostType} from '../../../redux/state';
 
 type MyPostsProps = {
     posts: PostType[]
-    addPost: (postMessage: string) => void
+    addPost: (newPostText:string) => void
+    updateNewPostText: (newText: string) => void
+    newPostText: string
 }
 export const MyPosts = (props: MyPostsProps) => {
-    const [newPostText, setNewPostText] = React.useState<string>('');
+
+
+
     const onClickAddPostCallback = () => {
-        if(newPostText.trim() !== ''){
-            props.addPost(newPostText);
-            setNewPostText('');
-        }
+            props.addPost(props.newPostText);
     }
 
     const onChangeCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setNewPostText(e.currentTarget.value)
+            props.updateNewPostText(e.currentTarget.value);
     }
 
     const onClickRemovePostCallback = () => {
@@ -32,7 +33,7 @@ export const MyPosts = (props: MyPostsProps) => {
             <h3>My posts</h3>
             <div className={s.postsForm}>
                 <div>
-                    <textarea onChange={onChangeCallback} value={newPostText}></textarea>
+                    <textarea onChange={onChangeCallback} value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={onClickAddPostCallback}>Add Post</button>

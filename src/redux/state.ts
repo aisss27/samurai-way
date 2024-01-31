@@ -1,5 +1,7 @@
-import {stat} from 'fs';
-import {rerenderEntireTree} from '../render';
+
+let rerenderEntireTree = (state:RootStateType) => {
+    console.log('State changed');
+}
 
 export type MessageType = {
     id: number
@@ -19,6 +21,8 @@ export type PostType = {
 export type ProfilePageType = {
     posts: PostType[]
     addPost: (postMessage: string) => void
+    updateNewPostText: (newText: string) => void
+    newPostText: string
 }
 
 export type DialogsPageType = {
@@ -32,13 +36,19 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
 }
 
-export let addPost = (postMessage: string) => {
-    let newPost = {id: 5, message: postMessage, likesCount: 555}
+export let addPost = (newPostText: string) => {
+    let newPost:PostType = {id: new Date().getTime(), message: newPostText, likesCount: 555}
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
     rerenderEntireTree(state)
 }
 
-let state = {
+export let updateNewPostext = (newText: string) => {
+  state.profilePage.newPostText = newText;
+  rerenderEntireTree(state);
+}
+
+let state:RootStateType = {
     profilePage: {
         posts: [
             {id: 1, message: 'Hi, I am Ais', likesCount: 777},
@@ -46,6 +56,8 @@ let state = {
             {id: 3, message: 'New Iphone!!!', likesCount: 27},
             {id: 4, message: 'New Iphone!!!', likesCount: 0},
         ],
+        newPostText: '',
+        updateNewPostText: updateNewPostext,
         addPost: addPost,
     },
     dialogsPage: {
@@ -64,6 +76,10 @@ let state = {
             {id: 7, name: 'Nurba'},
         ],
     },
+}
+
+export const subscribe = (observer:any) => {
+        rerenderEntireTree = observer;
 }
 
 

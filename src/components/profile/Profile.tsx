@@ -10,14 +10,21 @@ export type ProfileProps = {
     state: {
         posts: PostType[]
     }
-    addPost: (postMessage: string) => void
+    addPost: (newPostText:string) => void
+    updateNewPostText: (newText: string) => void
+    newPostText: string
 }
 
 export const Profile = (props: ProfileProps) => {
     return (
         <div>
            <ProfileInfo/>
-            <MyPosts addPost={props.addPost} posts={props.state.posts}/>
+            <MyPosts
+                addPost={props.addPost}
+                posts={props.state.posts}
+                newPostText={props.newPostText}
+                updateNewPostText={props.updateNewPostText}
+            />
             </div>
     );
 };

@@ -33,7 +33,7 @@ const state = props.store.getState();
                         dispatch={props.store.dispatch.bind(props.store)}
                         profilePage={state.profilePage}
                     />}/>
-                    <Route path="/dialogs" render={() => <Dialogs state={state.dialogsPage}/>}/>
+                    <Route path="/dialogs" render={() => <Dialogs store={props.store}/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

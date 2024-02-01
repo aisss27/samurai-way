@@ -1,5 +1,3 @@
-
-
 export type MessageType = {
     id: number
     message: string
@@ -23,6 +21,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
+    newMessageBody: string
 }
 
 
@@ -52,9 +51,9 @@ let store: StoreType = {
         },
         dialogsPage: {
             messages: [
-                {id:1, message: "Hi"},
-                {id:2, message: "How are you?"},
-                {id:3, message: "Yo"},
+                {id: 1, message: 'Hi'},
+                {id: 2, message: 'How are you?'},
+                {id: 3, message: 'Yo'},
             ],
             dialogs: [
                 {id: 1, name: 'Ais'},
@@ -65,34 +64,63 @@ let store: StoreType = {
                 {id: 6, name: 'Ali'},
                 {id: 7, name: 'Nurba'},
             ],
+            newMessageBody: '',
         },
     },
-    _callSubscriber(){
+    _callSubscriber() {
         console.log('State changed');
     },
-    subscribe(observer){
+    subscribe(observer) {
         this._callSubscriber = observer;
     },
-    getState(){
+    getState() {
         return this._state;
     },
 
 
     dispatch(action) {
-        if(action.type === 'ADD-POST'){
-            let newPost:PostType = {id: new Date().getTime(), message: this._state.profilePage.newPostText, likesCount: 555}
+        if (action.type === 'ADD-POST') {
+            let newPost: PostType = {
+                id: new Date().getTime(),
+                message: this._state.profilePage.newPostText,
+                likesCount: 555
+            }
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber()
-        }
-        else if(action.type === 'UPDATE-NEW-POST-TEXT'){
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+            this._state.dialogsPage.newMessageBody = action.body;
+            this._callSubscriber();
+        } else if (action.type === 'SEND-MESSAGE') {
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = '';
+            this._state.dialogsPage.messages.push({id: 6, message: body});
             this._callSubscriber();
         }
     }
 
 }
 
+export const addPostActionCreator = () => ({type: 'ADD-POST'});
+
+export const updateNewPostTextActionCreator = (text: string) => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newText: text,
+    }
+}
+
+export const updateNewMessageBodyActionCreator = (body: string) => {
+        return {
+                type: 'UPDATE-NEW-MESSAGE-BODY',
+                body: body
+            }
+    };
+
+export const sendMessageActionCreator = () => ({type: 'SEND-MESSAGE'});
 
 
 export default store;

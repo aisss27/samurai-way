@@ -33,11 +33,10 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    updateNewPostText: (newText: string) => void
-    addPost: (newPostText: string) => void
     _callSubscriber: () => void
-    subscribe: (callback: any) => void
+    subscribe: (callback: () => void) => void
     getState: () => RootStateType
+    dispatch: (action: any) => void
 }
 
 let store: StoreType = {
@@ -68,16 +67,6 @@ let store: StoreType = {
             ],
         },
     },
-    addPost(newPostText: string){
-        let newPost:PostType = {id: new Date().getTime(), message: this._state.profilePage.newPostText, likesCount: 555}
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber()
-    },
-    updateNewPostText(newText: string){
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber();
-    },
     _callSubscriber(){
         console.log('State changed');
     },
@@ -87,6 +76,21 @@ let store: StoreType = {
     getState(){
         return this._state;
     },
+
+
+    dispatch(action) {
+        if(action.type === 'ADD-POST'){
+            let newPost:PostType = {id: new Date().getTime(), message: this._state.profilePage.newPostText, likesCount: 555}
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber()
+        }
+        else if(action.type === 'UPDATE-NEW-POST-TEXT'){
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber();
+        }
+    }
+
 }
 
 

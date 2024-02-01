@@ -15,8 +15,9 @@ import {RootStateType, StoreType} from './redux/state';
 export type AppProps = {
    store: StoreType
     state:RootStateType
-    addPost: (newPostText:string) => void
-    updateNewPostText: (newText:string) => void
+    // addPost: () => void
+    // updateNewPostText: (newText:string) => void
+    dispatch: (action: any) => void
     // newPostText: string
 };
 
@@ -29,9 +30,8 @@ const state = props.store.getState();
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Route path="/profile" render={() => <Profile
-                        addPost={props.store.addPost.bind(props.store)}
+                        dispatch={props.store.dispatch.bind(props.store)}
                         profilePage={state.profilePage}
-                        updateNewPostText={props.store.updateNewPostText.bind(props.store)}
                     />}/>
                     <Route path="/dialogs" render={() => <Dialogs state={state.dialogsPage}/>}/>
                     <Route path="/news" render={() => <News/>}/>

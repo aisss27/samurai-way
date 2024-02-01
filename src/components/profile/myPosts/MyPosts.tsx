@@ -5,8 +5,9 @@ import { PostType} from '../../../redux/state';
 
 type MyPostsProps = {
     posts: PostType[]
-    addPost: (newPostText:string) => void
-    updateNewPostText: (newText: string) => void
+    // addPost: () => void
+    // updateNewPostText: (newText: string) => void
+    dispatch: (action: any) => void
     newPostText: string
 }
 export const MyPosts = (props: MyPostsProps) => {
@@ -14,11 +15,12 @@ export const MyPosts = (props: MyPostsProps) => {
 
 
     const onClickAddPostCallback = () => {
-            props.addPost(props.newPostText);
+            props.dispatch({type: 'ADD-POST'});
     }
 
     const onChangeCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            props.updateNewPostText(e.currentTarget.value);
+        let action = {type: 'UPDATE-NEW-POST-TEXT', newText: e.currentTarget.value};
+        props.dispatch(action);
     }
 
     const onClickRemovePostCallback = () => {

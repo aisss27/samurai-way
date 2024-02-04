@@ -3,7 +3,25 @@ import {DialogsPageType} from './store';
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
-export const dialogsReducer = (state: DialogsPageType, action: any) => {
+
+let initialState = {
+        messages: [
+            {id: 1, message: 'Hi'},
+            {id: 2, message: 'How are you?'},
+            {id: 3, message: 'Yo'},
+        ],
+        dialogs: [
+            {id: 1, name: 'Ais'},
+            {id: 2, name: 'Amina'},
+            {id: 3, name: 'Arman'},
+            {id: 4, name: 'Nurassem'},
+            {id: 5, name: 'Nurs'},
+            {id: 6, name: 'Ali'},
+            {id: 7, name: 'Nurba'},
+        ],
+        newMessageBody: '',
+    };
+export const dialogsReducer = (state: DialogsPageType = initialState, action: any) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             state.newMessageBody = action.body;

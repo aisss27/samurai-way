@@ -9,7 +9,7 @@ import {News} from './components/news/News';
 import {Music} from './components/music/Music';
 import {Settings} from './components/settings/Settings';
 
-import {RootStateType, StoreType} from './redux/state';
+import {RootStateType, StoreType} from './redux/store';
 
 
 export type AppProps = {

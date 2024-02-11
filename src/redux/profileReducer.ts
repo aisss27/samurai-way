@@ -1,7 +1,13 @@
-import {PostType, ProfilePageType} from './store';
+import {DialogType, MessageType, PostType} from './store';
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+
+export type ProfilePageType = {
+    posts: PostType[]
+    newPostText: string
+}
+
 
 
 let initialState = {

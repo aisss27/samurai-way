@@ -8,31 +8,28 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../red
 
 type MyPostsProps = {
     posts: PostType[]
-    // addPost: () => void
-    // updateNewPostText: (newText: string) => void
-    dispatch: (action: any) => void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+    // dispatch: (action: any) => void
     newPostText: string
 }
 export const MyPosts = (props: MyPostsProps) => {
 
-
-
     const onClickAddPostCallback = () => {
-            props.dispatch(addPostActionCreator());
+        props.addPost();
     }
 
     const onChangeCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // let action = {type: 'UPDATE-NEW-POST-TEXT', newText: e.currentTarget.value};
-        let action = updateNewPostTextActionCreator(e.currentTarget.value)
-        props.dispatch(action);
+        let text = e.currentTarget.value;
+        props.updateNewPostText(text);
     }
 
     const onClickRemovePostCallback = () => {
-
+        // Implement your remove post logic if needed
     }
 
-    let postsElements = props.posts.map(posts =>
-        <Post key={posts.id} id={posts.id} message={posts.message} likesScount={posts.likesCount}/>
+    let postsElements = props.posts.map(post =>
+        <Post key={post.id} id={post.id} message={post.message} likesScount={post.likesCount}/>
     );
     return (
         <div className={s.postsBlock}>
@@ -45,7 +42,7 @@ export const MyPosts = (props: MyPostsProps) => {
                     <button onClick={onClickAddPostCallback}>Add Post</button>
                 </div>
                 <div>
-                    <button>Remove Post</button>
+                    <button onClick={onClickRemovePostCallback}>Remove Post</button>
                 </div>
             </div>
             <div className={s.posts}>
@@ -54,4 +51,5 @@ export const MyPosts = (props: MyPostsProps) => {
         </div>
     )
 }
+
 

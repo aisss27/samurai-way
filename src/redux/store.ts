@@ -28,6 +28,8 @@ export type DialogsPageType = {
 }
 
 
+
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType

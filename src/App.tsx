@@ -8,6 +8,8 @@ import {News} from './components/news/News';
 import {Music} from './components/music/Music';
 import {Settings} from './components/settings/Settings';
 import DialogsContainer from './components/dialogs/DialogsContainer';
+import {Users} from './components/users/Users';
+import UsersContainer from './components/users/UsersContainer';
 
 
 
@@ -33,6 +35,7 @@ function App(props: AppProps) {
                     <Route path="/profile" render={() => <Profile
                     />}/>
                     <Route path="/dialogs" render={() => <DialogsContainer />}/>
+                    <Route path="/users" render={() => <UsersContainer/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

@@ -1,6 +1,8 @@
 import React from 'react';
 import {UserType} from '../../redux/usersReducer';
 import styles from './Users.module.css'
+import axios from 'axios';
+import userPhoto from '../../assets/images/avatar.webp'
 
 type UsersProps = {
     users: UserType[]
@@ -9,50 +11,57 @@ type UsersProps = {
     setUsers: (users: UserType[]) => void
 }
 export const Users = (props: UsersProps) => {
-    if(props.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
-                followed: true,
-                fullName: 'Aisultan Abdykerov',
-                status: 'I am boss',
-                location: {city: 'Karaganda', country: 'Kazakhstan'}
-            },
-            {
-                id: 2,
-                photoUrl: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
-                followed: false,
-                fullName: 'Arman',
-                status: 'I am a boy',
-                location: {city: 'Astana', country: 'Kazakhstan'}
-            },
-            {
-                id: 3,
-                photoUrl: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
-                followed: true,
-                fullName: 'Amina',
-                status: 'I am boss too',
-                location: {city: 'Almaty', country: 'Kazakhstan'}
-            },
-            {
-                id: 4,
-                photoUrl: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
-                followed: false,
-                fullName: 'Aidos',
-                status: 'I am a girl',
-                location: {city: 'Almaty', country: 'Kazakhstan'}
-            },
-
-        ])
+    let getUsers = () => {
+        if(props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    props.setUsers(response.data.items)
+                })
+    }
+        // props.setUsers([
+        //     {
+        //         id: 1,
+        //         photoUrl: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
+        //         followed: true,
+        //         name: 'Aisultan Abdykerov',
+        //         status: 'I am boss',
+        //         location: {city: 'Karaganda', country: 'Kazakhstan'}
+        //     },
+        //     {
+        //         id: 2,
+        //         photoUrl: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
+        //         followed: false,
+        //         name: 'Arman',
+        //         status: 'I am a boy',
+        //         location: {city: 'Astana', country: 'Kazakhstan'}
+        //     },
+        //     {
+        //         id: 3,
+        //         photoUrl: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
+        //         followed: true,
+        //         name: 'Amina',
+        //         status: 'I am boss too',
+        //         location: {city: 'Almaty', country: 'Kazakhstan'}
+        //     },
+        //     {
+        //         id: 4,
+        //         photoUrl: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
+        //         followed: false,
+        //         name: 'Aidos',
+        //         status: 'I am a girl',
+        //         location: {city: 'Almaty', country: 'Kazakhstan'}
+        //     },
+        //
+        // ])
     }
     return (
         <div>
+            <button onClick={getUsers}>Get Users</button>
             {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photoUrl} className={styles.userPhoto} alt=""/>
+                            <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto} alt=""/>
                         </div>
                         <div>
                             {
@@ -64,12 +73,12 @@ export const Users = (props: UsersProps) => {
                     </span>
                     <span>
                         <span>
-                            <div>{u.fullName}</div>
+                            <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                           <span>
-                            <div>{u.location.city}</div>
-                            <div>{u.location.country}</div>
+                            <div>{'u.location.city'}</div>
+                            <div>{'u.location.country'}</div>
                         </span>
                     </span>
                 </div>)

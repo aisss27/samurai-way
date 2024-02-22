@@ -1,8 +1,9 @@
 import {AppRootStateType} from '../../redux/reduxStore';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {Users} from './Users';
+
 import {followAC, setUsersAC, unfollowAC, UserType} from '../../redux/usersReducer';
+import Users from './Users';
 
 let mapStateToProps = (state: AppRootStateType) => {
     return {

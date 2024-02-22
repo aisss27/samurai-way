@@ -8,7 +8,7 @@ import {News} from './components/news/News';
 import {Music} from './components/music/Music';
 import {Settings} from './components/settings/Settings';
 import DialogsContainer from './components/dialogs/DialogsContainer';
-import {Users} from './components/users/Users';
+import {UsersUnused} from './components/users/UsersUnused';
 import UsersContainer from './components/users/UsersContainer';
 
 

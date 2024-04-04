@@ -14,3 +14,7 @@ let reducers = combineReducers({
 export type AppRootStateType = ReturnType<typeof reducers>
 
 export let store = createStore(reducers);
+
+
+// @ts-ignore
+(window as any).store = store;
